@@ -1,0 +1,95 @@
+.panel {
+  padding: 16px;
+}
+
+.panel-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #050038;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.status {
+  margin: 8px 0;
+  font-size: 13px;
+  color: #656175;
+}
+
+.results {
+  margin-top: 12px;
+}
+
+.results-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.result-content:hover {
+  opacity: 0.7;
+}
+
+.result-type {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b83a8;
+  text-transform: uppercase;
+}
+
+.result-text {
+  font-size: 13px;
+  color: #050038;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

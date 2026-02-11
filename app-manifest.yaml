@@ -1,0 +1,6 @@
+appName: Find and Replace
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write

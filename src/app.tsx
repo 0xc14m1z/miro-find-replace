@@ -140,8 +140,6 @@ function App() {
 
   return (
     <div className="panel">
-      <h2 className="panel-title">Find & Replace</h2>
-
       <div className="form-group">
         <label htmlFor="search">Find</label>
         <input

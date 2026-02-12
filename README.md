@@ -38,7 +38,7 @@ Working proof of concept with basic find & replace:
 
 ## Tech Stack
 
-- **React 18** + **TypeScript**
+- **React 19** + **TypeScript**
 - **Vite** (dev server & build)
 - **Miro Web SDK v2** (board interaction)
 - **Mirotone** (UI components matching Miro's design)
@@ -47,8 +47,9 @@ Working proof of concept with basic find & replace:
 
 ```bash
 npm install
-npm start        # Dev server on http://localhost:3000
-npm run build    # Production build to dist/
+npm start          # Dev server on http://localhost:3000
+npm run build      # Production build to dist/
+npm run typecheck  # Type-check without emitting
 ```
 
 ### Miro setup

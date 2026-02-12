@@ -47,7 +47,7 @@ Working proof of concept with basic find & replace:
 
 ```bash
 npm install
-npm start          # Dev server on http://localhost:3000
+npm start          # Dev server on http://localhost:22000
 npm run build      # Production build to dist/
 npm run typecheck  # Type-check without emitting
 ```
@@ -55,7 +55,7 @@ npm run typecheck  # Type-check without emitting
 ### Miro setup
 
 1. Go to https://developers.miro.com → Your apps → Create new app
-2. Set App URL to `http://localhost:3000`
+2. Set App URL to `http://localhost:22000`
 3. Enable scopes: `boards:read`, `boards:write`
 4. Install on your Developer Team
 5. Open a board and find the app in the apps panel

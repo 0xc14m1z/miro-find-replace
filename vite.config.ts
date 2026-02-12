@@ -9,10 +9,11 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, "index.html"),
         app: resolve(__dirname, "app.html"),
+        landing: resolve(__dirname, "landing.html"),
       },
     },
   },
   server: {
-    port: 3000,
+    port: 22000,
   },
 });

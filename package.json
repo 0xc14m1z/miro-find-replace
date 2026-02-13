@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "mirotone": "5.3.2",
+    "mirotone": "^5.3.2",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

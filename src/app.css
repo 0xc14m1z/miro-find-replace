@@ -1,42 +1,28 @@
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
-.panel {
-  padding: 1.5rem;
+main {
+  padding-inline: 1.5rem;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #050038;
-}
+form {
+  .form-group + .form-group {
+    margin-block-start: 0.5rem;
+  }
 
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.button-group {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+  footer {
+    display: flex;
+    gap: 0.5rem;
+    margin-block-start: 0.75rem;
+  }
 }
 
 .status {
   margin: 8px 0;
   font-size: 13px;
   color: #656175;
-}
-
-.results {
-  margin-top: 12px;
 }
 
 .results-title {

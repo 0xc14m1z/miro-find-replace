@@ -8,7 +8,7 @@ main {
 }
 
 form {
-  .form-group + .form-group {
+  div + div {
     margin-block-start: 0.5rem;
   }
 
@@ -17,59 +17,4 @@ form {
     gap: 0.5rem;
     margin-block-start: 0.75rem;
   }
-}
-
-.status {
-  margin: 8px 0;
-  font-size: 13px;
-  color: #656175;
-}
-
-.results-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 8px;
-}
-
-.results-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.result-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 0;
-  border-bottom: 1px solid #e6e6e6;
-}
-
-.result-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  cursor: pointer;
-  flex: 1;
-  min-width: 0;
-}
-
-.result-content:hover {
-  opacity: 0.7;
-}
-
-.result-type {
-  font-size: 11px;
-  font-weight: 600;
-  color: #8b83a8;
-  text-transform: uppercase;
-}
-
-.result-text {
-  font-size: 13px;
-  color: #050038;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

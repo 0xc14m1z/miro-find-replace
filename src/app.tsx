@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, type SubmitEvent } from "react";
+import { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "mirotone/dist/styles.css";
 import "./app.css";
@@ -45,11 +45,36 @@ async function getTextItems(): Promise<TextItem[]> {
 function App() {
   const [matches, setMatches] = useState<MatchResult[]>([]);
   const [status, setStatus] = useState("");
+  const [formValues, setFormValues] = useState({ search: "", replace: "" });
+  const formRef = useRef<HTMLFormElement>(null);
+
+  function getFormValues() {
+    const data = new FormData(formRef.current!);
+    return {
+      search: data.get("search") as string,
+      replace: data.get("replace") as string,
+    };
+  }
+
+  function handleChange() {
+    setFormValues(getFormValues());
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement;
+    if (submitter.name === "find") {
+      await handleFind();
+    } else if (submitter.name === "replace") {
+      await handleReplaceAll();
+    }
+  }
 
   async function handleFind() {
     try {
+      const { search } = getFormValues();
       const items = await getTextItems();
-      const regex = new RegExp(escapeRegExp(searchTerm), "gi");
+      const regex = new RegExp(escapeRegExp(search), "gi");
 
       const found: MatchResult[] = [];
       for (const item of items) {
@@ -75,13 +100,14 @@ function App() {
 
   async function handleReplaceAll() {
     try {
-      const regex = new RegExp(escapeRegExp(searchTerm), "gi");
+      const { search, replace } = getFormValues();
+      const regex = new RegExp(escapeRegExp(search), "gi");
       let count = 0;
 
       for (const match of matches) {
         const item = await miro.board.getById(match.id);
         if (isTextItem(item)) {
-          item.content = item.content.replace(regex, replaceTerm);
+          item.content = item.content.replace(regex, replace);
           await item.sync();
           count++;
         }
@@ -94,11 +120,12 @@ function App() {
   }
 
   async function handleReplaceSingle(itemId: string) {
-    const regex = new RegExp(escapeRegExp(searchTerm), "gi");
+    const { search, replace } = getFormValues();
+    const regex = new RegExp(escapeRegExp(search), "gi");
 
     const item = await miro.board.getById(itemId);
     if (isTextItem(item)) {
-      item.content = item.content.replace(regex, replaceTerm);
+      item.content = item.content.replace(regex, replace);
       await item.sync();
       setMatches((prev) => prev.filter((m) => m.id !== itemId));
       setStatus(() => {
@@ -113,55 +140,52 @@ function App() {
     await miro.board.viewport.zoomTo(item);
   }
 
-  function handleChange(event: ChangeEvent<HTMLFormElement>) {
-    const data = new FormData(event.target.form);
-    console.log(event);
-  }
-
-  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-    console.log(event);
-  }
-
   return (
     <main>
-      <form onChange={handleChange} onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="label" htmlFor="search">Find:</label>
-          <input className="input" id="search" placeholder="Search text..." />
+      <form ref={formRef} onChange={handleChange} onSubmit={handleSubmit}>
+        <div className="form-group form-group-small">
+          <label htmlFor="search">Find:</label>
+          <input className="input input-small" id="search" name="search" placeholder="Search text..." />
         </div>
 
-        <div className="form-group">
-          <label className="label" htmlFor="replace">Replace with</label>
-          <input className="input" id="replace" placeholder="Replacement text..." />
+        <div className="form-group form-group-small">
+          <label htmlFor="replace">Replace with:</label>
+          <input
+            className="input input-small"
+            id="replace"
+            name="replace"
+            placeholder="Replacement text..."
+          />
         </div>
 
         <footer>
-          <button className="button button-primary" name="find">Find</button>
-          <button className="button button-secondary" name="replace">Replace All</button>
+          <button className="button button-primary button-small" name="find" disabled={!formValues.search.trim()}>
+            Find
+          </button>
+          <button className="button button-secondary button-small" name="replace" disabled={matches.length === 0 || !formValues.replace.trim()}>
+            Replace All
+          </button>
         </footer>
       </form>
 
-      {status && <p className="status">{status}</p>}
+      {status && <p>{status}</p>}
 
       {matches.length > 0 && (
         <section>
-          <h3 className="results-title">Results</h3>
-          <ul className="results-list">
+          <h3>Results</h3>
+          <ul>
             {matches.map((m) => (
-              <li key={m.id} className="result-item">
-                <div
-                  className="result-content"
-                  onClick={() => handleZoomTo(m.id)}
-                >
-                  <span className="result-type">{m.type}</span>
-                  <span className="result-text">
+              <li key={m.id}>
+                <div onClick={() => handleZoomTo(m.id)}>
+                  <span>{m.type}</span>
+                  <span>
                     {m.plainText.length > 80
                       ? m.plainText.substring(0, 80) + "..."
                       : m.plainText}
                   </span>
                 </div>
                 <button
+                  type="button"
                   className="button button-secondary button-small"
                   onClick={() => handleReplaceSingle(m.id)}
                 >
